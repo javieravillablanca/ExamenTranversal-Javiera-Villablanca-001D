@@ -15,7 +15,7 @@ asientos = {}
 cplatinum = 0
 csilver = 0
 cgold = 0
-total1 = 0
+
 def mostrar_asientos():
     print("A continuacion, se encuentran disponibles los siguientes asientos: ")
     for i in range(10):
@@ -82,7 +82,7 @@ def Comprar_entradas():
             csilver += 1
         asientos[asiento] = (run, valor, precio)
         print("¡ Asiento reservado correctamente !")
-        time.sleep(2)
+        time.sleep(3)
 
 
 def mostrar_ubicaciones_disp():
@@ -101,19 +101,18 @@ def ver_list_asis():
 def ganancias_totales():
     global cplatinum
     total = sum(asientos[asiento][2] for asiento in asientos)
-    total1 = cplatinum + cgold + csilver
-    print ("TIPO ENTRADA---------------------CANTIDAD--------------------------TOTAL")
-    print (f"Platinum  $ 120.000 |-----------{cplatinum}---------------{cplatinum * 120000}")
-    print (f"   Gold    $ 80.000 |-------------{cgold}-------------------{cgold * 80000}")
-    print (f"  Silver   $ 50.000 |------------{csilver}-----------------{csilver * 50000}")
-    print (f"   Total            |------------{total1}---------------------: ${total}")
+    print ("TIPO ENTRADA\t\tCANTIDAD\tTOTAL")
+    print (f"Platinum | $ 120.000 \t{cplatinum} \t\t${cplatinum*120000}")
+    print (f"Gold | $ 80.000 \t{cgold} \t\t${cgold*80000}")
+    print (f"Silver | $ 50.000 \t{csilver} \t\t${csilver*50000}")
+    print(f"Total---------------------------------: ${total}")
     time.sleep(3)
 
 
 while Validar == True:
     time.sleep(2)
     limpiar_pantalla()
-    print("----------****** MENU ******-----------")
+    print("----------*** MENU ***-----------")
     print("1) Comprar entradas")
     print("2) Mostrar ubicaciones disponibles")
     print("3) Ver listado de asistentes")
@@ -136,9 +135,9 @@ while Validar == True:
         ganancias_totales()
     elif opc == "5":
         Validar = False
-        print("******************* ¡ HASTA PRONTO ! ******************")
-        print("Nombre :  Javiera Villablanca :D")
-        print("Fecha  : 10/07/2023 ")
+        print("******** ¡ HASTA PRONTO ! ********")
+        print("Nombre : Javiera Villablanca ")
+        print("Fecha : 10/07/2023 ")
         time.sleep(3)
     else:
         print("Error, debe ingresar una opcion valida, (1-5)")
