@@ -12,11 +12,10 @@ escenario = [[j + 10 * i + 1 for j in range(10)] for i in range(10)]
 
 
 asientos = {}
-conta = 0
-contb = 0
-contc = 0
-
-
+cplatinum = 0
+csilver = 0
+cgold = 0
+total1 = 0
 def mostrar_asientos():
     print("A continuacion, se encuentran disponibles los siguientes asientos: ")
     for i in range(10):
@@ -34,52 +33,56 @@ def mostrar_asientos():
 
 
 def Comprar_entradas():
+    global cplatinum
+    global cgold
+    global csilver
     mostrar_asientos()
     cant= int(input("Ingrese la cantidad de entradas a comprar (maximo 3 y minimo 1 por persona) : "))
-    if cant <1 and cant >3 : 
+    if cant <1 or cant >3 :
         print ("Error, debe ingresar maximo 3 entradas y minimo 1 entrada por persona")
         time.sleep(2)
         limpiar_pantalla()
-    asiento = int(input("Ingrese el numero del asiento que desea comprar: "))
-    if asiento < 1 or asiento > 100:
-        print("Error, el numero de asiento ingresado no es valido ")
-        time.sleep(2)
-        limpiar_pantalla()
-    elif asiento in asientos:
-        print("Lo lamentamos, el numero de asiento no esta disponible")
-        time.sleep(2)
-        limpiar_pantalla()
-    else:
-        while True:
-            run = input("Ingrese el Run (sin guion - ni punto) de la persona que ocupara el asiento para mayor seguridad - FORMATO (123456789): ")
-            run = run.replace(".", "").replace("-", "")  
-            if len(run) not in (8, 9):
-                print("Error, el run ingresado no es valido, debe contener 8 o 9 digitos")
-                time.sleep(2)
-                limpiar_pantalla()
-            else:
-                if run.isdigit() or (run[:-1].isdigit() and run[-1].upper() == "K"):
-                    break
-                else:
-                    print("Error, el Run ingresado no es valido")
+    for _ in range(cant):
+        asiento = int(input(f"Ingrese el numero del asiento {_+1} que desea comprar: "))
+        if asiento < 1 or asiento > 100:
+            print("Error, el numero de asiento ingresado no es valido ")
+            time.sleep(2)
+            limpiar_pantalla()
+        elif asiento in asientos:
+            print("Lo lamentamos, el numero de asiento no esta disponible")
+            time.sleep(2)
+            limpiar_pantalla()
+        else:
+            while True:
+                run = input("Ingrese el Run (sin guion - ni punto) de la persona que ocupara el asiento para mayor seguridad - FORMATO (123456789): ")
+                run = run.replace(".", "").replace("-", "")  
+                if len(run) not in (8, 9):
+                    print("Error, el run ingresado no es valido, debe contener 8 o 9 digitos")
                     time.sleep(2)
                     limpiar_pantalla()
+                else:
+                    if run.isdigit() or (run[:-1].isdigit() and run[-1].upper() == "K"):
+                        break
+                    else:
+                        print("Error, el Run ingresado no es valido")
+                        time.sleep(2)
+                        limpiar_pantalla()
        
         if asiento <= 20:
             valor = "Platinum"
             precio = 120000
-            conta = conta + 1
+            cplatinum += 1
         elif asiento <= 50 and asiento >=21:
             valor = "Gold"
             precio = 80000
-            contb = contb + 1
+            cgold +=1
         else:
             valor = "Silver"
             precio = 50000
-            contc = contc + 1
+            csilver += 1
         asientos[asiento] = (run, valor, precio)
         print("¡ Asiento reservado correctamente !")
-        time.sleep(3)
+        time.sleep(2)
 
 
 def mostrar_ubicaciones_disp():
@@ -96,19 +99,21 @@ def ver_list_asis():
 
 
 def ganancias_totales():
+    global cplatinum
     total = sum(asientos[asiento][2] for asiento in asientos)
-    print ("-------TIPO ENTRADA-------CANTIDAD-------TOTAL")
-    print (f"Platinum $120.000  ------{conta}")
-    print (f"Gold $80.000       ------{contb}")
-    print (f"Silver $50.000     -------{contc}")
-    print(f"Ganancias totales: ${total}")
+    total1 = cplatinum + cgold + csilver
+    print ("TIPO ENTRADA---------------------CANTIDAD--------------------------TOTAL")
+    print (f"Platinum  $ 120.000 |-----------{cplatinum}---------------{cplatinum * 120000}")
+    print (f"   Gold    $ 80.000 |-------------{cgold}-------------------{cgold * 80000}")
+    print (f"  Silver   $ 50.000 |------------{csilver}-----------------{csilver * 50000}")
+    print (f"   Total            |------------{total1}---------------------: ${total}")
     time.sleep(3)
 
 
 while Validar == True:
     time.sleep(2)
     limpiar_pantalla()
-    print("------------ MENU -------------")
+    print("----------****** MENU ******-----------")
     print("1) Comprar entradas")
     print("2) Mostrar ubicaciones disponibles")
     print("3) Ver listado de asistentes")
@@ -131,7 +136,9 @@ while Validar == True:
         ganancias_totales()
     elif opc == "5":
         Validar = False
-        print("*************** ¡ HASTA PRONTO ! Mi nombre es : Javiera Villablanca y hoy estamos a 10 de Julio del año 2023:D ****************")
+        print("******************* ¡ HASTA PRONTO ! ******************")
+        print("Nombre :  Javiera Villablanca :D")
+        print("Fecha  : 10/07/2023 ")
         time.sleep(3)
     else:
         print("Error, debe ingresar una opcion valida, (1-5)")
